@@ -145,10 +145,38 @@ function getBook(id) {
 
 // Destructuring
 
-const book = getBook(2);
+const book = getBook(1);
 
 const { titles, author, genres } = book;
 
-const [primary_genre, secondary_genre] = genres;
+// ... 'rest' example
+// otherGenres loads all the 'rest' of the genres in a 'new' array
+// the variable using the ... destructuring pattern must be loaded at the end of the array to get the 'rest'
+const [primary_genre, secondary_genre, ...otherGenres] = genres;
 
 console.log(primary_genre);
+
+console.log(otherGenres);
+
+// ... 'spread' example
+
+console.log(otherGenres, "epic fantasy");
+console.log(...otherGenres, "epic fantasy");
+console.log("epic fantasy", ...otherGenres);
+
+// ... 'spread' takes all of the genres from the inner array and makes it part of the outer array as includes the value 'epic fantasy' as a element.
+
+// spread with objects
+const updatedBook = { book, imdbRating: 9.1 };
+console.log(updatedBook);
+
+// places the new imdbRating property inside the original one.
+const updatedSBook = { ...book, imdbRating: 9.1 };
+
+console.log(updatedSBook);
+
+// overriding existing properties
+// the ...book has to be before the update property for the attribute to be updated
+// in this example 'pages' is being updated
+const overideBook = { apple: "golden wonder", ...book, pages: 3000 };
+console.log(overideBook);
