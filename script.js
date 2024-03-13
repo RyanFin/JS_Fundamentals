@@ -145,7 +145,7 @@ function getBook(id) {
 
 // Destructuring
 
-const book = getBook(2);
+const book = getBook(3);
 
 // object destructure must match an existing 'key'
 const { title, author, pages, genres } = book;
@@ -228,7 +228,7 @@ console.log(0 && "some string");
 // 'OR'
 console.log(true || "some string");
 
-console.log(false || "some string");
+console.log(undefined || "some string");
 
 console.log(null || "some string");
 
@@ -241,13 +241,27 @@ const spanishTranslations = book.translations.bengali || "NOT TRANSLATED";
 spanishTranslations; // when a falsy value is found it will use the 2nd var
 // "NOT TRANSLATED" in 'OR' short circuiting
 
-console.log(book.reviews.librarything.reviewsCount);
-countWrong = book.reviews.librarything.reviewsCount || "no data";
+// console.log(book.reviews.librarything.reviewsCount);
+// countWrong = book.reviews.librarything.reviewsCount || "no data";
 
 countWrong; // not correct as it should be equal to 0 not 'no data'.
 // '0' is data in this example but the program sees it as a falsy value
 
 // solution: knowledge coalescing operator will only return the 2nd value
 // when the 1st value is null or undefined; but not when it is 0 or an empty string ''/""
-const count = book.reviews.librarything.reviewsCount ?? "no data";
+const count = book.reviews.librarything?.reviewsCount ?? "no data";
 count;
+
+// optional chaining
+function getTotalReviewsCount(book) {
+  const goodreads = book.reviews.goodreads.reviewsCount;
+  // optional chaining operator '?' kicks into effect if the librarything object is not present for a book
+  // then the value is to be ignored
+  const librarything = book.reviews.librarything?.reviewsCount ?? 23;
+
+  librarything;
+
+  return goodreads + librarything;
+}
+
+getTotalReviewsCount(book);
