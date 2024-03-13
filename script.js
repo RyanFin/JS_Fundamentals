@@ -147,7 +147,8 @@ function getBook(id) {
 
 const book = getBook(1);
 
-const { titles, author, genres } = book;
+// object destructure must match an existing 'key'
+const { title, author, pages, genres } = book;
 
 // ... 'rest' example
 // otherGenres loads all the 'rest' of the genres in a 'new' array
@@ -180,3 +181,10 @@ console.log(updatedSBook);
 // in this example 'pages' is being updated
 const overideBook = { apple: "golden wonder", ...book, pages: 3000 };
 console.log(overideBook);
+
+// template literals (with the use of backticks)
+const summary = `${title} is a book written by ${author} and the book has ${pages} pages`;
+
+console.log(summary);
+
+const year = book.publicationDate.split("-")[0];
