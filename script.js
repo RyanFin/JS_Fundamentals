@@ -145,7 +145,7 @@ function getBook(id) {
 
 // Destructuring
 
-const book = getBook(1);
+const book = getBook(2);
 
 // object destructure must match an existing 'key'
 const { title, author, pages, genres } = book;
@@ -188,3 +188,66 @@ const summary = `${title} is a book written by ${author} and the book has ${page
 console.log(summary);
 
 const year = book.publicationDate.split("-")[0];
+
+// ternary operator
+const pagesRange = pages > 1000 ? "over a thousand" : "less than a thousand";
+
+// ES6 arrow functions
+
+// old method
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+
+// console.log(getYear(book.publicationDate));
+
+// new arrow function method
+(str) => str.split("-")[0];
+
+const getYear = (str) => str.split("-")[0];
+
+ans = getYear(book.publicationDate);
+
+const add = (a, b) => a + b;
+
+b = add(5, 6);
+
+// short circuiting
+// falsy: 0, null, '',"", false, undefined
+// 'AND'
+console.log("jonas" && "some string"); // truthy value
+
+console.log(true && "some string");
+
+console.log(null && "some string");
+
+console.log(undefined && "some string");
+
+console.log(0 && "some string");
+
+// 'OR'
+console.log(true || "some string");
+
+console.log(false || "some string");
+
+console.log(null || "some string");
+
+console.log("hey" || "some string");
+
+console.log(book.translations.spanish);
+
+// 'OR' can be used in this case for setting default values in a JS program
+const spanishTranslations = book.translations.bengali || "NOT TRANSLATED";
+spanishTranslations; // when a falsy value is found it will use the 2nd var
+// "NOT TRANSLATED" in 'OR' short circuiting
+
+console.log(book.reviews.librarything.reviewsCount);
+countWrong = book.reviews.librarything.reviewsCount || "no data";
+
+countWrong; // not correct as it should be equal to 0 not 'no data'.
+// '0' is data in this example but the program sees it as a falsy value
+
+// solution: knowledge coalescing operator will only return the 2nd value
+// when the 1st value is null or undefined; but not when it is 0 or an empty string ''/""
+const count = book.reviews.librarything.reviewsCount ?? "no data";
+count;
