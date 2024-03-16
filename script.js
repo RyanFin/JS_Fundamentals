@@ -244,7 +244,7 @@ spanishTranslations; // when a falsy value is found it will use the 2nd var
 // console.log(book.reviews.librarything.reviewsCount);
 // countWrong = book.reviews.librarything.reviewsCount || "no data";
 
-countWrong; // not correct as it should be equal to 0 not 'no data'.
+// countWrong; // not correct as it should be equal to 0 not 'no data'.
 // '0' is data in this example but the program sees it as a falsy value
 
 // solution: knowledge coalescing operator will only return the 2nd value
@@ -254,10 +254,10 @@ count;
 
 // optional chaining
 function getTotalReviewsCount(book) {
-  const goodreads = book.reviews.goodreads.reviewsCount;
+  const goodreads = book.reviews?.goodreads?.reviewsCount ?? 0;
   // optional chaining operator '?' kicks into effect if the librarything object is not present for a book
   // then the value is to be ignored
-  const librarything = book.reviews.librarything?.reviewsCount ?? 23;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
 
   librarything;
 
@@ -265,3 +265,55 @@ function getTotalReviewsCount(book) {
 }
 
 getTotalReviewsCount(book);
+
+const books = getBooks();
+
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation); // you can chain multiple conditions
+
+console.log(longBooks);
+
+const adventureBooks = books
+  .filter((book) => book.genres.includes("adventure")) //filter by adventure genre only
+  .map((book) => book.title); // only display book titles
+
+adventureBooks;
+
+// reduce functionz
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+
+pagesAllBooks;
+
+// sort function
+const x = [1, 100000, 4, 21, 30, 506];
+
+const ascSorted = x.slice().sort((a, b) => a - b);
+x; // sort ascending
+ascSorted;
+
+const descSorted = x.slice().sort((a, b) => b - a);
+x;
+descSorted;
+
+const [elem1, elem2, ...rest] = descSorted;
+elem1;
+rest;
+
+const updatedDesc = [...descSorted, 70];
+
+updatedDesc.sort((a, b) => a - b);
+
+updatedDesc;
+
+// sort pages in descending order
+const pageSort = books
+  .slice()
+  .sort((a, b) => b.pages - a.pages)
+  .map((book) => ({ title: book.title, pages: book.pages }));
+
+pageSort;
+
+const boo = books.filter((book) => book.id > 2 && book.id < 5);
+
+console.log(boo);
